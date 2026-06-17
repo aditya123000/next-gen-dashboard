@@ -1,3 +1,4 @@
+import { GlowCard } from '@/components/ui/GlowCard'
 import { Icon } from '@/components/ui/Icon'
 import { ProgressBar } from '@/components/ui/ProgressBar'
 import type { Course } from '@/types/course'
@@ -8,7 +9,7 @@ interface CourseTileProps {
 
 export function CourseTile({ course }: CourseTileProps) {
   return (
-    <div className="h-full rounded-2xl bg-surface border border-border hover:border-purple-500/30 hover:shadow-glow transition-all duration-300 p-6 flex flex-col shadow-card">
+    <GlowCard className="h-full flex flex-col">
       <div className="flex items-start justify-between">
         <Icon 
           name={course.icon_name} 
@@ -25,8 +26,8 @@ export function CourseTile({ course }: CourseTileProps) {
       </h3>
       
       <div className="mt-auto pt-4">
-        <ProgressBar value={course.progress??0} />
+        <ProgressBar value={course.progress||0} />
       </div>
-    </div>
+    </GlowCard>
   )
 }

@@ -1,5 +1,8 @@
 'use client'
 
+import { motion } from 'framer-motion'
+import { cellAppear } from '@/lib/animations/variants'
+
 const generateMockData = () => {
   const patterns = [
     [0, 1, 2, 1, 0, 1, 2, 3, 2, 1, 0, 1],
@@ -19,37 +22,46 @@ export function ActivityTile() {
   const getColor = (level: number) => {
     const colors = [
       'bg-gray-800',      // 0 - none
-      'bg-purple-900',    // 1 - low (darker)
+      'bg-purple-900',    // 1 - low
       'bg-purple-700',    // 2 - medium
-      'bg-purple-500',    // 3 - high (brighter)
+      'bg-purple-500',    // 3 - high
     ]
     return colors[level] || colors[0]
   }
 
   return (
-    <div className="rounded-2xl bg-surface border border-border p-6 shadow-card">
+    <motion.div 
+      className="rounded-2xl bg-surface border border-border p-6 shadow-card"
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.6, delay: 0.4 }}
+    >
       <h3 className="text-white font-semibold text-lg mb-4">Activity Overview</h3>
       
       <div className="flex justify-between text-xs text-gray-400 mb-2">
         <span>Mon</span>
-        <span>Tue</span>
         <span>Wed</span>
-        <span>Thur</span>
         <span>Fri</span>
-        <span>Sat</span>
         <span>Sun</span>
       </div>
       
       <div className="grid grid-cols-12 gap-1">
         {data.map((week, i) => (
           <div key={i} className="flex flex-col gap-1">
-            {week.map((level, j) => (
-              <div
-                key={`${i}-${j}`}
-                className={`w-3 h-3 rounded-sm transition-colors ${getColor(level)}`}
-                title={`${level || 0} contributions`}
-              />
-            ))}
+            {week.map((level, j) => {
+              const delay = (i * week.length + j) * 0.003
+              return (
+                <motion.div
+                  key={`${i}-${j}`}
+                  custom={delay}
+                  variants={cellAppear}
+                  initial="hidden"
+                  animate="visible"
+                  className={`w-3 h-3 rounded-sm ${getColor(level)}`}
+                  title={`${level || 0} contributions`}
+                />
+              )
+            })}
           </div>
         ))}
       </div>
@@ -66,6 +78,6 @@ export function ActivityTile() {
           <span className="ml-1">More</span>
         </div>
       </div>
-    </div>
+    </motion.div>
   )
 }

@@ -1,6 +1,8 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { motion } from 'framer-motion'
+import { progressBarSpring } from '@/lib/animations/variants'
+import { useEffect, useState } from 'react'
 
 interface ProgressBarProps {
   value: number
@@ -8,19 +10,29 @@ interface ProgressBarProps {
   showLabel?: boolean
 }
 
-export function ProgressBar({ value, className = '', showLabel = false }: ProgressBarProps) {
-  const [width, setWidth] = useState(0)
+export function ProgressBar({ 
+  value, 
+  className = '', 
+  showLabel = false 
+}: ProgressBarProps) {
+  const [isMounted, setIsMounted] = useState(false)
 
   useEffect(() => {
-    const timer = setTimeout(() => setWidth(value), 100)
-    return () => clearTimeout(timer)
-  }, [value])
+    setIsMounted(true)
+  }, [])
 
   return (
     <div className={`relative w-full h-3 bg-gray-800 rounded-full overflow-hidden ${className}`}>
-      <div 
-        className="h-full bg-linear-to-r from-purple-500 via-pink-500 to-purple-500 rounded-full transition-all duration-1000 ease-out"
-        style={{ width: `${width}%` }}
+      <motion.div 
+        className="h-full bg-linear-to-r from-purple-500 via-pink-500 to-purple-500 rounded-full"
+        initial={{ width: '0%' }}
+        animate={isMounted ? { width: `${value}%` } : { width: '0%' }}
+        transition={{
+          type: 'spring',
+          stiffness: 100,
+          damping: 30,
+          duration: 0.8,
+        }}
       />
       {showLabel && (
         <span className="absolute right-0 -top-6 text-sm font-medium text-gray-300">

@@ -1,92 +1,77 @@
 @import "tailwindcss";
-@import "tw-animate-css";
-
-@custom-variant dark (&:is(.dark *));
-
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-
-  --color-card: var(--card);
-  --color-card-foreground: var(--card-foreground);
-
-  --color-popover: var(--popover);
-  --color-popover-foreground: var(--popover-foreground);
-
-  --color-primary: var(--primary);
-  --color-primary-foreground: var(--primary-foreground);
-
-  --color-secondary: var(--secondary);
-  --color-secondary-foreground: var(--secondary-foreground);
-
-  --color-muted: var(--muted);
-  --color-muted-foreground: var(--muted-foreground);
-
-  --color-accent: var(--accent);
-  --color-accent-foreground: var(--accent-foreground);
-
-  --color-destructive: var(--destructive);
-  --color-destructive-foreground: var(--destructive-foreground);
-
-  --color-border: var(--border);
-  --color-input: var(--input);
-  --color-ring: var(--ring);
-
-  --color-background-secondary: var(--background-secondary);
-
-  --radius-sm: calc(var(--radius) - 4px);
-  --radius-md: calc(var(--radius) - 2px);
-  --radius-lg: var(--radius);
-  --radius-xl: calc(var(--radius) + 4px);
-}
+@config "../tailwind.config.ts";
 
 @layer base {
   * {
     @apply border-border;
   }
-
+  
   body {
-    @apply bg-background text-foreground;
+    @apply bg-background text-text-primary;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
   }
-
+  
+  /* Custom scrollbar */
   ::-webkit-scrollbar {
     width: 6px;
     height: 6px;
   }
-
+  
   ::-webkit-scrollbar-track {
     @apply bg-background-secondary;
   }
-
+  
   ::-webkit-scrollbar-thumb {
     @apply bg-gray-700 rounded-full;
   }
-
+  
   ::-webkit-scrollbar-thumb:hover {
     @apply bg-gray-600;
   }
 }
 
 @layer utilities {
+  /* Gradient text - brighter */
   .text-gradient {
-    @apply bg-gradient-to-r from-purple-400 via-pink-400 to-purple-400 bg-clip-text text-transparent;
+    @apply bg-linear-to-r from-purple-400 via-pink-400 to-purple-400 bg-clip-text text-transparent;
     background-size: 200% 200%;
     animation: gradient-shift 3s ease infinite;
   }
-
+  
+  @keyframes gradient-shift {
+    0%, 100% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+  }
+  
+  /* Glow pulse */
   .glow-pulse {
     animation: glow-pulse 2s ease-in-out infinite;
   }
+  
+  @keyframes glow-pulse {
+    0%, 100% { opacity: 0.3; }
+    50% { opacity: 0.6; }
+  }
+  
+  /* Card glow on hover */
+  .card-glow {
+    @apply transition-all duration-300;
+  }
+  
+  .card-glow:hover {
+    @apply shadow-glow border-purple-500/30;
+  }
 }
 
-@keyframes gradient-shift {
-  0%, 100% { background-position: 0% 50%; }
-  50% { background-position: 100% 50%; }
-}
-
-@keyframes glow-pulse {
-  0%, 100% { opacity: 0.3; }
-  50% { opacity: 0.6; }
+@layer base {
+  /* Force better contrast on all text */
+  p, span, h1, h2, h3, h4, h5, h6 {
+    @apply text-text-primary;
+  }
+  
+  /* Secondary text */
+  .text-muted {
+    @apply text-gray-400;
+  }
 }

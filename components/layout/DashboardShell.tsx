@@ -1,9 +1,16 @@
+import { Suspense } from 'react'
 import { Sidebar } from './Sidebar'
 import { BottomNav } from './BottomNav'
 import { BentoGrid } from '@/components/bento/BentoGrid'
-import { MOCK_COURSES, MOCK_USER } from '@/lib/mock-data'
+import { BentoGridSkeleton } from '@/components/bento/BentoGridSkeleton'
+import { getCourses } from '@/lib/supabase/queries'
 
-export function DashboardShell() {
+const USER_NAME = 'Alex Chen'
+const STREAK_DAYS = 42
+
+export async function DashboardShell() {
+  const courses = await getCourses()
+  
   return (
     <div className="min-h-screen bg-background">
       <Sidebar />
@@ -18,15 +25,21 @@ export function DashboardShell() {
                 </h1>
               </div>
               <div className="text-sm text-gray-400 hidden lg:block">
-                Last updated: Today at 2:30 PM
+                {courses && courses.length > 0 ? (
+                  `Showing ${courses.length} courses`
+                ) : (
+                  'No courses available'
+                )}
               </div>
             </div>
             
-            <BentoGrid 
-              courses={MOCK_COURSES}
-              userName={MOCK_USER.name}
-              streakDays={MOCK_USER.streakDays}
-            />
+            <Suspense fallback={<BentoGridSkeleton />}>
+              <BentoGrid 
+                courses={courses}
+                userName={USER_NAME}
+                streakDays={STREAK_DAYS}
+              />
+            </Suspense>
           </div>
         </div>
       </main>

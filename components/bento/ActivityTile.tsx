@@ -1,58 +1,42 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+const generateMockData = () => {
+  const patterns = [
+    [0, 1, 2, 1, 0, 1, 2, 3, 2, 1, 0, 1],
+    [1, 2, 1, 0, 1, 2, 3, 2, 1, 0, 1, 2],
+    [2, 1, 0, 1, 2, 3, 2, 1, 0, 1, 2, 3],
+    [1, 0, 1, 2, 3, 2, 1, 0, 1, 2, 3, 2],
+    [0, 1, 2, 3, 2, 1, 0, 1, 2, 3, 2, 1],
+    [3, 2, 1, 0, 1, 2, 3, 2, 1, 0, 1, 2],
+    [2, 3, 2, 1, 0, 1, 2, 3, 2, 1, 0, 1],
+  ]
+  return patterns
+}
 
 export function ActivityTile() {
-  const [data, setData] = useState<number[][]>([])
-  const [isMounted, setIsMounted] = useState(false)
-
-  useEffect(() => {
-    const generateMockData = () => {
-      return Array.from({ length: 7 }, () => 
-        Array.from({ length: 12 }, () => 
-          Math.floor(Math.random() * 4)
-        )
-      )
-    }
-    setData(generateMockData())
-    setIsMounted(true)
-  }, [])
-
+  const data = generateMockData()
+  
   const getColor = (level: number) => {
     const colors = [
-      'bg-gray-800',
-      'bg-purple-950',
-      'bg-purple-700',
-      'bg-purple-400',
+      'bg-gray-800',      // 0 - none
+      'bg-purple-900',    // 1 - low (darker)
+      'bg-purple-700',    // 2 - medium
+      'bg-purple-500',    // 3 - high (brighter)
     ]
     return colors[level] || colors[0]
   }
 
-  if (!isMounted) {
-    return (
-      <div className="rounded-2xl bg-surface border border-border p-6">
-        <h3 className="text-white font-semibold mb-4">Activity Overview</h3>
-        <div className="grid grid-cols-12 gap-1 opacity-50">
-          {Array.from({ length: 7 }, (_, i) => (
-            <div key={i} className="flex flex-col gap-1">
-              {Array.from({ length: 12 }, (_, j) => (
-                <div key={j} className="w-3 h-3 rounded-sm bg-gray-800" />
-              ))}
-            </div>
-          ))}
-        </div>
-      </div>
-    )
-  }
-
   return (
-    <div className="rounded-2xl bg-surface border border-border p-6">
-      <h3 className="text-white font-semibold mb-4">Activity Overview</h3>
+    <div className="rounded-2xl bg-surface border border-border p-6 shadow-card">
+      <h3 className="text-white font-semibold text-lg mb-4">Activity Overview</h3>
       
-      <div className="flex justify-between text-xs text-gray-500 mb-2">
+      <div className="flex justify-between text-xs text-gray-400 mb-2">
         <span>Mon</span>
+        <span>Tue</span>
         <span>Wed</span>
+        <span>Thur</span>
         <span>Fri</span>
+        <span>Sat</span>
         <span>Sun</span>
       </div>
       
@@ -70,7 +54,7 @@ export function ActivityTile() {
         ))}
       </div>
       
-      <div className="flex justify-between text-xs text-gray-500 mt-3">
+      <div className="flex justify-between text-xs text-gray-400 mt-3">
         <span>Less</span>
         <div className="flex gap-1 items-center">
           {[0, 1, 2, 3].map((level) => (

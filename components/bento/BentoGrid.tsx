@@ -11,36 +11,50 @@ interface BentoGridProps {
   courses: Course[]
   userName?: string
   streakDays?: number
+  weeklyHours?: number
+  activeCourses?: number
+  completedLessons?: number
 }
 
 export default function BentoGrid({ 
   courses, 
   userName = 'Student', 
-  streakDays = 0 
+  streakDays = 0,
+  weeklyHours = 12.5,
+  activeCourses: propActiveCourses,
+  completedLessons = 28
 }: BentoGridProps) {
   const displayCourses = courses.slice(0, 4)
   const hasAdditionalCourses = courses.length > 4
+  // Calculate active courses from actual data if not provided
+  const activeCourses = propActiveCourses || courses.filter(c => (c.progress??0) < 100).length || 4
 
   return (
     <div 
       className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 auto-rows-min"
       role="grid"
     >
-      {/* Hero Tile */}
+      {/* Hero Tile - spans 2 columns on desktop */}
       <article 
         className="lg:col-span-2 lg:row-span-2"
         role="gridcell"
-        aria-label="Welcome and streak information"
+        aria-label="Dashboard command center"
       >
         <motion.div
           variants={fadeUp}
           transition={{ delay: 0.05 }}
         >
-          <HeroTile userName={userName} streakDays={streakDays} />
+          <HeroTile 
+            userName={userName} 
+            streakDays={streakDays}
+            weeklyHours={weeklyHours}
+            activeCourses={activeCourses}
+            completedLessons={completedLessons}
+          />
         </motion.div>
       </article>
       
-      {/* Course Tiles */}
+      {/* Course Tiles - first 3 courses */}
       {displayCourses.slice(0, 3).map((course, index) => (
         <article 
           key={course.id} 
@@ -57,7 +71,7 @@ export default function BentoGrid({
         </article>
       ))}
       
-      {/* Activity Tile */}
+      {/* Activity Tile - spans 2 columns */}
       <section 
         className="lg:col-span-2"
         role="gridcell"
@@ -71,7 +85,7 @@ export default function BentoGrid({
         </motion.div>
       </section>
       
-      {/* Additional course */}
+      {/* Additional course if available */}
       {displayCourses.length >= 4 && (
         <article 
           className="lg:col-span-1"

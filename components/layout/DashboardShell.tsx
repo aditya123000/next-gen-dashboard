@@ -4,19 +4,32 @@ import { getCourses } from '@/lib/supabase/queries'
 import { BentoGridSkeleton } from '@/components/bento/BentoGridSkeleton'
 import BottomNav from './BottomNav'
 
+// Dynamically import components
 const Sidebar = dynamic(() => import('./Sidebar'), {
   loading: () => <aside className="w-20 lg:w-64" aria-label="Loading sidebar..." />,
 })
 
-const BentoGrid = dynamic(() => import('@/components/bento/BentoGrid'), {
+const BentoGrid = dynamic(() => import('../bento/BentoGrid'), {
   loading: () => <BentoGridSkeleton />,
 })
 
 export async function DashboardShell() {
   const courses = await getCourses()
   
+  // Calculate metrics from actual data
+  
+  const totalCourses = courses.length
+  const completedCourses = courses.filter(c => c.progress === 100).length
+  const inProgressCourses = courses.filter(c => (c.progress ?? 0) > 0 && (c.progress ?? 0) < 100).length
+  const totalProgress = courses.reduce((acc, c) => acc + (c.progress ?? 0), 0)
+  const averageProgress = totalCourses > 0 ? Math.round(totalProgress / totalCourses) : 0
+  
+  // Mock data for metrics not in DB (could come from another table)
+  const weeklyHours = 12.5
+  const completedLessons = completedCourses * 7 + Math.round(inProgressCourses * 3.5) // Rough estimate
+  
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen bg-background">
       {/* Skip link target */}
       <div id="main-content" />
       
@@ -40,7 +53,7 @@ export async function DashboardShell() {
               </div>
               <div className="text-sm text-gray-400 hidden lg:block" aria-live="polite">
                 {courses && courses.length > 0 ? (
-                  `Showing ${courses.length} courses`
+                  `${courses.length} courses · ${averageProgress}% average progress`
                 ) : (
                   'No courses available'
                 )}
@@ -57,6 +70,9 @@ export async function DashboardShell() {
                   courses={courses}
                   userName="Alex Chen"
                   streakDays={42}
+                  weeklyHours={weeklyHours}
+                  activeCourses={inProgressCourses || 4}
+                  completedLessons={completedLessons}
                 />
               </Suspense>
             </section>

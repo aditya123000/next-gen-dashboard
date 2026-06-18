@@ -3,41 +3,51 @@
 import { LayoutDashboard, BookOpen, BarChart3, Settings, User } from 'lucide-react'
 
 const navItems = [
-  { icon: LayoutDashboard, label: 'Home', active: true },
-  { icon: BookOpen, label: 'Courses', active: false },
-  { icon: BarChart3, label: 'Analytics', active: false },
-  { icon: Settings, label: 'Settings', active: false },
+  { icon: LayoutDashboard, label: 'Home', id: 'home', ariaLabel: 'Home navigation' },
+  { icon: BookOpen, label: 'Courses', id: 'courses', ariaLabel: 'Courses navigation' },
+  { icon: BarChart3, label: 'Analytics', id: 'analytics', ariaLabel: 'Analytics navigation' },
+  { icon: Settings, label: 'Settings', id: 'settings', ariaLabel: 'Settings navigation' },
 ]
 
-export function BottomNav() {
+export default function BottomNav() {
   return (
-    <main className="pb-16 lg:pb-0">
-      <nav className="lg:hidden fixed bottom-0 left-0 right-0 bg-surface border-t border-border z-50">
-        <div className="flex items-center justify-around h-16 px-2">
-          {navItems.map((item) => (
+    <nav 
+      className="lg:hidden fixed bottom-0 left-0 right-0 bg-surface border-t border-border z-50"
+      aria-label="Mobile navigation"
+    >
+      <ul 
+        className="flex items-center justify-around h-16 px-2"
+        role="list"
+      >
+        {navItems.map((item) => (
+          <li key={item.id} role="listitem">
             <button
-              key={item.label}
               className={`
                 flex flex-col items-center gap-0.5 px-3 py-1 rounded-lg
                 transition-colors duration-200
-                ${item.active 
+                ${item.id === 'home' 
                   ? 'text-purple-400' 
                   : 'text-gray-400 hover:text-white'
                 }
               `}
+              aria-current={item.id === 'home' ? 'page' : undefined}
+              aria-label={item.ariaLabel}
             >
-              <item.icon className="w-5 h-5" />
+              <item.icon className="w-5 h-5" aria-hidden="true" />
               <span className="text-[10px] font-medium">{item.label}</span>
             </button>
-          ))}
+          </li>
+        ))}
+        <li role="listitem">
           <button
             className="flex flex-col items-center gap-0.5 px-3 py-1 rounded-lg text-gray-400 hover:text-white transition-colors"
+            aria-label="User profile navigation"
           >
-            <User className="w-5 h-5" />
+            <User className="w-5 h-5" aria-hidden="true" />
             <span className="text-[10px] font-medium">Profile</span>
           </button>
-        </div>
-      </nav>
-    </main>
+        </li>
+      </ul>
+    </nav>
   )
 }

@@ -1,10 +1,15 @@
 export function CourseListSkeleton() {
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+    <div 
+      className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4"
+      aria-busy="true"
+      aria-label="Loading courses"
+    >
       {[1, 2, 3, 4, 5, 6].map((i) => (
-        <div
-          key={i}
+        <div 
+          key={i} 
           className="rounded-2xl bg-surface border border-border p-6 h-48 animate-pulse"
+          aria-hidden="true"
         >
           <div className="flex items-start justify-between">
             <div className="w-8 h-8 rounded-lg bg-gray-800" />

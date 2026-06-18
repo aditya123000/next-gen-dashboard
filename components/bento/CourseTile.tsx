@@ -10,16 +10,20 @@ interface CourseTileProps {
 export function CourseTile({ course }: CourseTileProps) {
   return (
     <GlowCard className="h-full flex flex-col">
-      <div className="flex items-start justify-between">
+      <header className="flex items-start justify-between">
         <Icon 
           name={course.icon_name} 
           className="text-purple-400" 
           size={32} 
+          aria-label={`${course.icon_name} icon`}
         />
-        <span className="text-sm font-semibold text-gray-300">
+        <span 
+          className="text-sm font-semibold text-gray-300"
+          aria-label={`${course.progress} percent complete`}
+        >
           {course.progress}%
         </span>
-      </div>
+      </header>
       
       <h3 className="text-white font-semibold text-lg mt-3 mb-2 line-clamp-2">
         {course.title}

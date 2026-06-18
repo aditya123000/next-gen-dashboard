@@ -4,8 +4,8 @@ import { motion } from 'framer-motion'
 import { HeroTile } from './HeroTile'
 import { CourseTile } from './CourseTile'
 import { ActivityTile } from './ActivityTile'
-import type { Course } from '@/types/course'
 import { fadeUp } from '@/lib/animations/variants'
+import type { Course } from '@/types/course'
 
 interface BentoGridProps {
   courses: Course[]
@@ -13,7 +13,7 @@ interface BentoGridProps {
   streakDays?: number
 }
 
-export function BentoGrid({ 
+export default function BentoGrid({ 
   courses, 
   userName = 'Student', 
   streakDays = 0 
@@ -22,57 +22,95 @@ export function BentoGrid({
   const hasAdditionalCourses = courses.length > 4
 
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 auto-rows-min">
-      <motion.div 
+    <div 
+      className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 auto-rows-min"
+      role="grid"
+    >
+      {/* Hero Tile */}
+      <article 
         className="lg:col-span-2 lg:row-span-2"
-        variants={fadeUp}
-        transition={{delay:0.05}}
+        role="gridcell"
+        aria-label="Welcome and streak information"
+      >
+        <motion.div
+          variants={fadeUp}
+          transition={{ delay: 0.05 }}
         >
-        <HeroTile userName={userName} streakDays={streakDays} />
-      </motion.div>
-      
-      {displayCourses.slice(0, 3).map((course,index) => (
-        <motion.div 
-            key={course.id} 
-            className="lg:col-span-1"
-            variants={fadeUp}
-            transition={{delay:0.05+(index+1)*0.08}}
-            >
-          <CourseTile course={course} />
+          <HeroTile userName={userName} streakDays={streakDays} />
         </motion.div>
+      </article>
+      
+      {/* Course Tiles */}
+      {displayCourses.slice(0, 3).map((course, index) => (
+        <article 
+          key={course.id} 
+          className="lg:col-span-1"
+          role="gridcell"
+          aria-label={`Course: ${course.title}`}
+        >
+          <motion.div
+            variants={fadeUp}
+            transition={{ delay: 0.05 + (index + 1) * 0.08 }}
+          >
+            <CourseTile course={course} />
+          </motion.div>
+        </article>
       ))}
       
-      <motion.div 
+      {/* Activity Tile */}
+      <section 
         className="lg:col-span-2"
-        variants={fadeUp}
-        transition={{delay:0.05+4*0.08}}
+        role="gridcell"
+        aria-label="Activity overview chart"
+      >
+        <motion.div
+          variants={fadeUp}
+          transition={{ delay: 0.05 + 4 * 0.08 }}
         >
-        <ActivityTile />
-      </motion.div>
-      
-      {displayCourses.length >= 4 && (
-        <motion.div 
-        className="lg:col-span-1"
-        variants={fadeUp}
-        transition={{delay:0.05+5*0.08}}
-        >
-          <CourseTile course={displayCourses[3]} />
+          <ActivityTile />
         </motion.div>
+      </section>
+      
+      {/* Additional course */}
+      {displayCourses.length >= 4 && (
+        <article 
+          className="lg:col-span-1"
+          role="gridcell"
+          aria-label={`Course: ${displayCourses[3].title}`}
+        >
+          <motion.div
+            variants={fadeUp}
+            transition={{ delay: 0.05 + 5 * 0.08 }}
+          >
+            <CourseTile course={displayCourses[3]} />
+          </motion.div>
+        </article>
       )}
       
+      {/* "More courses" indicator */}
       {hasAdditionalCourses && (
-        <motion.div 
-        className="lg:col-span-1"
-        variants={fadeUp}
-        transition={{delay:0.05+6*0.08}}
+        <article 
+          className="lg:col-span-1"
+          role="gridcell"
+          aria-label={`${courses.length - 4} more courses available`}
         >
-          <div className="rounded-2xl bg-surface border border-border p-6 h-full flex items-center justify-center hover:border-purple-500/30 transition-colors cursor-pointer">
-            <div className="text-center">
-              <div className="text-2xl mb-1">+{courses.length - 4}</div>
-              <div className="text-sm text-gray-400">More courses</div>
+          <motion.div
+            variants={fadeUp}
+            transition={{ delay: 0.05 + 6 * 0.08 }}
+          >
+            <div 
+              className="rounded-2xl bg-surface border border-border p-6 h-full flex items-center justify-center hover:border-purple-500/30 transition-colors cursor-pointer shadow-card"
+              role="button"
+              tabIndex={0}
+              aria-label="View all courses"
+            >
+              <div className="text-center">
+                <div className="text-2xl font-bold text-white mb-1">+{courses.length - 4}</div>
+                <div className="text-sm text-gray-400">More courses</div>
+              </div>
             </div>
-          </div>
-        </motion.div>
+          </motion.div>
+        </article>
       )}
     </div>
   )

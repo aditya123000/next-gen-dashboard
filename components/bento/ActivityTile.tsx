@@ -29,23 +29,38 @@ export function ActivityTile() {
     return colors[level] || colors[0]
   }
 
+  const getAccessibilityLabel = (level: number): string => {
+    const labels = [
+      'No activity',
+      'Low activity',
+      'Medium activity',
+      'High activity'
+    ]
+    return labels[level] || 'No activity'
+  }
+
   return (
-    <motion.div 
+    <section 
       className="rounded-2xl bg-surface border border-border p-6 shadow-card"
-      initial={{ opacity: 0, y: 20 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.6, delay: 0.4 }}
+      aria-label="Activity overview chart"
     >
       <h3 className="text-white font-semibold text-lg mb-4">Activity Overview</h3>
       
-      <div className="flex justify-between text-xs text-gray-400 mb-2">
+      <div 
+        className="flex justify-between text-xs text-gray-400 mb-2"
+        aria-hidden="true"
+      >
         <span>Mon</span>
         <span>Wed</span>
         <span>Fri</span>
         <span>Sun</span>
       </div>
       
-      <div className="grid grid-cols-12 gap-1">
+      <div 
+        className="grid grid-cols-12 gap-1"
+        role="img"
+        aria-label="Activity heatmap showing contributions over time"
+      >
         {data.map((week, i) => (
           <div key={i} className="flex flex-col gap-1">
             {week.map((level, j) => {
@@ -58,6 +73,8 @@ export function ActivityTile() {
                   initial="hidden"
                   animate="visible"
                   className={`w-3 h-3 rounded-sm ${getColor(level)}`}
+                  role="img"
+                  aria-label={`${getAccessibilityLabel(level)}`}
                   title={`${level || 0} contributions`}
                 />
               )
@@ -66,18 +83,22 @@ export function ActivityTile() {
         ))}
       </div>
       
-      <div className="flex justify-between text-xs text-gray-400 mt-3">
+      <div 
+        className="flex justify-between text-xs text-gray-400 mt-3"
+        aria-hidden="true"
+      >
         <span>Less</span>
         <div className="flex gap-1 items-center">
           {[0, 1, 2, 3].map((level) => (
             <div
               key={level}
               className={`w-3 h-3 rounded-sm ${getColor(level)}`}
+              aria-label={`${getAccessibilityLabel(level)}`}
             />
           ))}
           <span className="ml-1">More</span>
         </div>
       </div>
-    </motion.div>
+    </section>
   )
 }

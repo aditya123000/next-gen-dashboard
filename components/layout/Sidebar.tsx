@@ -1,7 +1,7 @@
 'use client'
 
 import { useState } from 'react'
-import { motion, AnimatePresence, LayoutGroup } from 'framer-motion'
+import { motion, LayoutGroup } from 'framer-motion'
 import { 
   LayoutDashboard, 
   BookOpen, 
@@ -12,42 +12,51 @@ import {
   User,
   Sparkles
 } from 'lucide-react'
-import { cn } from '@/lib/utils/cn'
-import { layoutTransition } from '@/lib/animations/variants'
-import { SidebarNavItem } from './SidebarNavItem'
+import SidebarNavItem from './SidebarNavItem'
 
 const navItems = [
-  { icon: LayoutDashboard, label: 'Dashboard', id: 'dashboard' },
-  { icon: BookOpen, label: 'Courses', id: 'courses' },
-  { icon: BarChart3, label: 'Analytics', id: 'analytics' },
-  { icon: Settings, label: 'Settings', id: 'settings' },
+  { icon: LayoutDashboard, label: 'Dashboard', id: 'dashboard', ariaLabel: 'Dashboard navigation' },
+  { icon: BookOpen, label: 'Courses', id: 'courses', ariaLabel: 'Courses navigation' },
+  { icon: BarChart3, label: 'Analytics', id: 'analytics', ariaLabel: 'Analytics navigation' },
+  { icon: Settings, label: 'Settings', id: 'settings', ariaLabel: 'Settings navigation' },
 ]
 
-export function Sidebar() {
+export default function Sidebar() {
   const [isCollapsed, setIsCollapsed] = useState(false)
   const [activeItem, setActiveItem] = useState('dashboard')
 
   return (
     <LayoutGroup>
-      <motion.aside 
+      <nav
+        aria-label="Main navigation"
         className={`
           fixed left-0 top-0 h-full bg-background-secondary border-r border-border z-50
           transition-all duration-300 ease-in-out
           hidden lg:flex flex-col
         `}
-        animate={{ width: isCollapsed ? 80 : 256 }}
-        transition={layoutTransition}
+        style={{ width: isCollapsed ? 80 : 256 }}
       >
-        {/* Logo */}
-        <div className={`
-          h-16 flex items-center px-4 border-b border-border
-          ${isCollapsed ? 'justify-center' : ''}
-        `}>
+        {/* Skip to content - hidden but accessible */}
+        <div className="sr-only">
+          <a href="#main-content">Skip to main content</a>
+        </div>
+
+        {/* Logo / Brand */}
+        <div 
+          className={`
+            h-16 flex items-center px-4 border-b border-border
+            ${isCollapsed ? 'justify-center' : ''}
+          `}
+          aria-hidden="true"
+        >
           <motion.div 
             className="flex items-center gap-2"
             layout="position"
           >
-            <div className="w-8 h-8 rounded-lg bg-linear-to-br from-purple-500 to-pink-500 flex items-center justify-center shrink-0">
+            <div 
+              className="w-8 h-8 rounded-lg bg-linear-to-br from-purple-500 to-pink-500 flex items-center justify-center shrink-0"
+              aria-label="Learn.io logo"
+            >
               <Sparkles className="w-4 h-4 text-white" />
             </div>
             {!isCollapsed && (
@@ -64,23 +73,31 @@ export function Sidebar() {
           </motion.div>
         </div>
 
-        {/* Navigation */}
-        <nav className="flex-1 px-3 py-4 space-y-1">
+        {/* Navigation List */}
+        <ul 
+          className="flex-1 px-3 py-4 space-y-1"
+          role="list"
+        >
           {navItems.map((item) => (
-            <SidebarNavItem
-              key={item.id}
-              icon={item.icon}
-              label={item.label}
-              id={item.id}
-              isActive={activeItem === item.id}
-              isCollapsed={isCollapsed}
-              onClick={() => setActiveItem(item.id)}
-            />
+            <li key={item.id} role="listitem">
+              <SidebarNavItem
+                icon={item.icon}
+                label={item.label}
+                id={item.id}
+                isActive={activeItem === item.id}
+                isCollapsed={isCollapsed}
+                onClick={() => setActiveItem(item.id)}
+                ariaLabel={item.ariaLabel}
+              />
+            </li>
           ))}
-        </nav>
+        </ul>
 
         {/* User Profile */}
-        <div className="border-t border-border p-4">
+        <section 
+          className="border-t border-border p-4"
+          aria-label="User profile"
+        >
           <motion.div 
             className={`
               flex items-center gap-3
@@ -88,7 +105,10 @@ export function Sidebar() {
             `}
             layout="position"
           >
-            <div className="w-8 h-8 rounded-full bg-purple-500/20 flex items-center justify-center shrink-0">
+            <div 
+              className="w-8 h-8 rounded-full bg-purple-500/20 flex items-center justify-center shrink-0"
+              aria-hidden="true"
+            >
               <User className="w-4 h-4 text-purple-400" />
             </div>
             {!isCollapsed && (
@@ -104,7 +124,7 @@ export function Sidebar() {
               </motion.div>
             )}
           </motion.div>
-        </div>
+        </section>
 
         {/* Collapse Toggle */}
         <motion.button
@@ -118,6 +138,8 @@ export function Sidebar() {
           `}
           whileHover={{ scale: 1.1 }}
           whileTap={{ scale: 0.9 }}
+          aria-label={isCollapsed ? "Expand sidebar" : "Collapse sidebar"}
+          aria-expanded={!isCollapsed}
         >
           {isCollapsed ? (
             <ChevronRight className="w-3 h-3 text-gray-400" />
@@ -125,7 +147,7 @@ export function Sidebar() {
             <ChevronLeft className="w-3 h-3 text-gray-400" />
           )}
         </motion.button>
-      </motion.aside>
+      </nav>
     </LayoutGroup>
   )
 }

@@ -1,8 +1,8 @@
 #!/usr/bin/env node
 
-const fs = require('fs')
-const path = require('path')
-const glob = require('glob')
+import fs from 'node:fs'
+import path from 'node:path'
+import { globSync } from 'glob'
 
 // Properties that cause layout shifts
 const LAYOUT_PROPERTIES = [
@@ -32,27 +32,14 @@ const LAYOUT_PROPERTIES = [
   'grid',
 ]
 
-// Properties that are safe (transform and opacity)
-const SAFE_PROPERTIES = [
-  'transform',
-  'opacity',
-  'color',
-  'background',
-  'backgroundColor',
-  'boxShadow',
-  'borderColor',
-  'zIndex',
-  'will-change',
-]
-
 console.log('🔍 Scanning for layout-shifting CSS properties...\n')
 
-const files = glob.sync('components/**/*.{tsx,ts}', { cwd: process.cwd() })
+const files = globSync('components/**/*.{tsx,ts}', { cwd: process.cwd() })
 
 let violations = []
 
 files.forEach((file) => {
-  const content = fs.readFileSync(path.join(process.cwd(), file), 'utf8')
+  const content = fs.readFileSync(path.resolve(process.cwd(), file), 'utf8')
   const lines = content.split('\n')
   
   lines.forEach((line, index) => {

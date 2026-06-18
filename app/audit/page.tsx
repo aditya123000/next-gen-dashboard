@@ -1,6 +1,5 @@
 'use client'
 
-import { useState } from 'react'
 import { CourseTile } from '@/components/bento/CourseTile'
 import { HeroTile } from '@/components/bento/HeroTile'
 import { ActivityTile } from '@/components/bento/ActivityTile'
@@ -8,7 +7,6 @@ import { GlowCard } from '@/components/ui/GlowCard'
 import { MOCK_COURSES } from '@/lib/mock-data'
 
 export default function AuditPage() {
-  const [hovered, setHovered] = useState<string | null>(null)
   const course = MOCK_COURSES[0]
 
   return (

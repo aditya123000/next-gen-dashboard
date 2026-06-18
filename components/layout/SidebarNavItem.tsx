@@ -1,7 +1,7 @@
 'use client'
 
 import { motion } from 'framer-motion'
-import { cn } from '@/lib/utils/cn'
+import { cn } from '@/lib/utils'
 import { sidebarItemHover, layoutTransition } from '@/lib/animations/variants'
 import { LucideIcon } from 'lucide-react'
 
@@ -12,15 +12,16 @@ interface SidebarNavItemProps {
   isActive: boolean
   isCollapsed: boolean
   onClick: () => void
+  ariaLabel?: string
 }
 
-export function SidebarNavItem({
+export default function SidebarNavItem({
   icon: Icon,
   label,
-  id,
   isActive,
   isCollapsed,
   onClick,
+  ariaLabel,
 }: SidebarNavItemProps) {
   return (
     <motion.button
@@ -31,6 +32,10 @@ export function SidebarNavItem({
         isCollapsed ? 'justify-center' : ''
       )}
       {...sidebarItemHover}
+      role="menuitem"
+      aria-current={isActive ? 'page' : undefined}
+      aria-label={ariaLabel || label}
+      aria-expanded={!isCollapsed}
     >
       {/* Active highlight with layoutId */}
       {isActive && (
@@ -38,6 +43,7 @@ export function SidebarNavItem({
           layoutId="activeNavItem"
           className="absolute inset-0 bg-purple-500/15 rounded-lg border border-purple-500/30"
           transition={layoutTransition}
+          aria-hidden="true"
         />
       )}
       
@@ -46,6 +52,7 @@ export function SidebarNavItem({
           'w-5 h-5 relative z-10',
           isActive && 'text-purple-400'
         )} 
+        aria-hidden="true"
       />
       
       {!isCollapsed && (

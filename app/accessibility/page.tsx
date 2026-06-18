@@ -2,7 +2,7 @@
 
 export default function AccessibilityAudit() {
   return (
-    <main className="min-h-screen bg-background p-8">
+    <main className="min-h-screen p-8">
       <h1 className="text-white text-2xl font-bold mb-8">Accessibility Audit</h1>
       
       <div className="grid grid-cols-1 gap-8">

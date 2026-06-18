@@ -10,11 +10,11 @@ export default function AuditPage() {
   const course = MOCK_COURSES[0]
 
   return (
-    <div className="min-h-screen bg-background p-8">
+    <div className="min-h-screen p-8">
       <h1 className="text-white text-2xl font-bold mb-8">Layout Shift Audit</h1>
       
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-        {/* HeroTile */}
+        {/* HeroTile  */}
         <div className="border border-yellow-500/30 p-4 rounded-lg">
           <h2 className="text-white mb-2">HeroTile</h2>
           <HeroTile userName="Alex" streakDays={42} />

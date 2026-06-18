@@ -7,10 +7,6 @@ interface IconProps extends LucideProps {
   name: string
 }
 
-/**
- * A component that dynamically loads Lucide icons by name.
- * Uses useEffect to load the icon on the client, avoiding lazy() stability issues.
- */
 function IconLoader({ name, className, size, ...props }: IconProps) {
   const [IconComponent, setIconComponent] = useState<ComponentType<LucideProps> | null>(null)
 

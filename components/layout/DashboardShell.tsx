@@ -4,7 +4,6 @@ import { getCourses } from '@/lib/supabase/queries'
 import { BentoGridSkeleton } from '@/components/bento/BentoGridSkeleton'
 import BottomNav from './BottomNav'
 
-// Dynamically import components
 const Sidebar = dynamic(() => import('./Sidebar'), {
   loading: () => <aside className="w-20 lg:w-64" aria-label="Loading sidebar..." />,
 })
@@ -17,7 +16,7 @@ export async function DashboardShell() {
   const courses = await getCourses()
   
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen">
       {/* Skip link target */}
       <div id="main-content" />
       

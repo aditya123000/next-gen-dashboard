@@ -21,10 +21,10 @@ export function ActivityTile() {
   
   const getColor = (level: number) => {
     const colors = [
-      'bg-gray-800',      // 0 - none
-      'bg-purple-900',    // 1 - low
-      'bg-purple-700',    // 2 - medium
-      'bg-purple-500',    // 3 - high
+      'bg-gray-800',
+      'bg-purple-900',
+      'bg-purple-700',
+      'bg-purple-500',
     ]
     return colors[level] || colors[0]
   }

@@ -3,12 +3,12 @@
 import dynamic from 'next/dynamic'
 import { SidebarSkeleton, BottomNavSkeleton } from './DashboardShellSkeleton'
 
-export const Sidebar = dynamic(() => import('./Sidebar').then(mod => mod.Sidebar), {
+export const Sidebar = dynamic(() => import('./Sidebar'), {
   ssr: false,
   loading: () => <SidebarSkeleton />
 })
 
-export const BottomNav = dynamic(() => import('./BottomNav').then(mod => mod.BottomNav), {
+export const BottomNav = dynamic(() => import('./BottomNav'), {
   ssr: false,
   loading: () => <BottomNavSkeleton />
 })

@@ -42,7 +42,7 @@ export function BottomNavSkeleton() {
 
 export function DashboardShellSkeleton() {
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen">
       <SidebarSkeleton />
       <main className="lg:ml-64 pb-20 lg:pb-8 min-h-screen">
         <div className="p-4 md:p-6 lg:p-8">

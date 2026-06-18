@@ -16,7 +16,7 @@ export default function Error({
 
   return (
     <main 
-      className="min-h-screen bg-background flex items-center justify-center p-4"
+      className="min-h-screen flex items-center justify-center p-4"
       role="main"
       aria-labelledby="error-title"
     >

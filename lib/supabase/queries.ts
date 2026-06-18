@@ -1,44 +1,68 @@
-import {createClient} from './server'
-import type {Course} from '@/types/course'
+import { createClient as createSupabaseClient } from '@supabase/supabase-js'
+import type { Course } from '@/types/course'
+import { unstable_cache } from 'next/cache'
 
+// Static client for cached queries to avoid "cookies()" error in unstable_cache
+const supabase = createSupabaseClient(
+  process.env.NEXT_PUBLIC_SUPABASE_URL!,
+  process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
+)
 
-export async function getCourses(): Promise<Course[]> {
-  const supabase =await createClient()
-  const { data, error } = await supabase
-    .from('courses')
-    .select('*')
-    .order('created_at', { ascending: true })
-  
-  if (error) {
-    console.error('Supabase query error:', error)
-    throw new Error(`Failed to fetch courses: ${error.message}`)
-  }
-  
-  if (!data || data.length === 0) {
-    console.warn('No courses found in database')
-    return []
-  }
-  console.log(`Successfully fetched ${data.length} courses`)
-  return data
-}
+/**
+ * Fetch all courses from the database.
+ * Cached for 60 seconds using Next.js unstable_cache.
+ * This uses a static client to avoid dynamic header issues.
+ */
+export const getCourses = unstable_cache(
+  async (): Promise<Course[]> => {
+    const { data, error } = await supabase
+      .from('courses')
+      .select('*')
+      .order('created_at', { ascending: true })
+    
+    if (error) {
+      console.error('Supabase query error:', error)
+      throw new Error(`Failed to fetch courses: ${error.message}`)
+    }
+    
+    if (!data || data.length === 0) {
+      console.warn('No courses found in database')
+      return []
+    }
+    console.log(`Successfully fetched ${data.length} courses (cached)`)
+    return data
+  },
+  ['courses'],
+  { revalidate: 60, tags: ['courses'] }
+)
 
-export async function getCourseById(id: string): Promise<Course | null> {
-  const supabase =await createClient()
-  const {data,error} = await supabase
-    .from('courses')
-    .select('*')
-    .eq('id', id)
-    .single()
-  
-  if (error) {
-    console.error(`Error fetching course ${id}:`, error)
-    return null
-  }
-  return data
-}
+/**
+ * Fetch a single course by its ID.
+ * Cached for 60 seconds using Next.js unstable_cache.
+ */
+export const getCourseById = (id: string) => unstable_cache(
+  async (): Promise<Course | null> => {
+    const { data, error } = await supabase
+      .from('courses')
+      .select('*')
+      .eq('id', id)
+      .single()
+    
+    if (error) {
+      console.error(`Error fetching course ${id}:`, error)
+      return null
+    }
+    return data
+  },
+  ['course', id],
+  { revalidate: 60, tags: [`course-${id}`] }
+)()
 
+/**
+ * Fetch course statistics.
+ * Note: This remains a dynamic query if needed, or could be cached similarly.
+ */
 export async function getCourseStats() {
-  const supabase =await createClient()
   const { count, error } = await supabase
     .from('courses')
     .select('*', { count: 'exact', head: true })

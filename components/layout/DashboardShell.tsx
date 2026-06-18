@@ -1,9 +1,8 @@
 import { Suspense } from 'react'
-import { Sidebar } from './Sidebar'
-import { BottomNav } from './BottomNav'
 import { BentoGrid } from '@/components/bento/BentoGrid'
 import { BentoGridSkeleton } from '@/components/bento/BentoGridSkeleton'
 import { getCourses } from '@/lib/supabase/queries'
+import { Sidebar, BottomNav } from './ClientLayout'
 
 const USER_NAME = 'Alex Chen'
 const STREAK_DAYS = 42

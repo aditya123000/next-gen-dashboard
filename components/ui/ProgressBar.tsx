@@ -14,21 +14,21 @@ export function ProgressBar({
   showLabel = false 
 }: ProgressBarProps) {
   return (
-    <div className={`relative w-full h-3 bg-gray-800 rounded-full overflow-hidden ${className}`}>
+    <div className={`relative w-full h-2 bg-white/[0.04] rounded-full overflow-hidden border border-white/[0.03] shadow-[inset_0_1px_2px_rgba(0,0,0,0.6)] ${className}`}>
       <motion.div 
-        className="h-full bg-linear-to-r from-purple-500 via-pink-500 to-purple-500 rounded-full"
+        className="h-full bg-[#5B6CFF] rounded-full"
         style={{ transformOrigin: 'left' }}
         initial={{ scaleX: 0 }}
         animate={{ scaleX: value / 100 }}
         transition={{
           type: 'spring',
-          stiffness: 100,
-          damping: 30,
-          duration: 0.8,
+          stiffness: 85,
+          damping: 22,
+          mass: 0.8
         }}
       />
       {showLabel && (
-        <span className="absolute right-0 text-sm font-medium text-gray-300" 
+        <span className="absolute right-0 text-xs font-bold text-gray-300" 
             style={{ transform: 'translateY(-100%)' }}>
           {value}%
         </span>

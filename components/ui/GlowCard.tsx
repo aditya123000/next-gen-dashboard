@@ -1,47 +1,84 @@
 'use client'
 
 import { motion, HTMLMotionProps } from 'framer-motion'
-import { hoverScale, cardGlow } from '@/lib/animations/variants'
 import { cn } from '@/lib/utils/cn'
 import { ReactNode } from 'react'
 
 interface GlowCardProps extends HTMLMotionProps<'div'> {
   children: ReactNode
   className?: string
-  gradient?: string
+  variant?: 'default' | 'elevated' | 'hero' | 'glow'
+  glowColor?: 'purple' | 'pink' | 'blue' | 'orange' | 'none'
 }
 
 export function GlowCard({ 
   children, 
   className = '', 
-  gradient = 'from-purple-600/20 via-pink-600/10 to-transparent',
+  variant = 'default',
+  glowColor = 'none',
   ...props 
 }: GlowCardProps) {
+  // Variant configurations
+  const variants = {
+    default: {
+      bg: 'bg-zinc-950/40 backdrop-blur-md',
+      border: 'border-white/[0.08]',
+      shadow: 'shadow-card',
+    },
+    elevated: {
+      bg: 'bg-zinc-950/60 backdrop-blur-md',
+      border: 'border-white/[0.08]',
+      shadow: 'shadow-card-elevated',
+    },
+    hero: {
+      bg: 'bg-zinc-950/50 backdrop-blur-md',
+      border: 'border-white/[0.08]',
+      shadow: 'shadow-card',
+    },
+    glow: {
+      bg: 'bg-zinc-950/40 backdrop-blur-md',
+      border: 'border-white/[0.08]',
+      shadow: 'shadow-card',
+    },
+  }
+
+  // Glow color configurations (mapped to standard subtle shadows for visual calming)
+  const glowColors = {
+    purple: 'shadow-glow-purple',
+    pink: 'shadow-glow-pink',
+    blue: 'shadow-glow-blue',
+    orange: 'shadow-glow-orange',
+    none: '',
+  }
+
+  const variantStyles = variants[variant] || variants.default
+  const glowStyle = glowColor !== 'none' ? glowColors[glowColor] : ''
+
   return (
     <motion.div
-      {...hoverScale}
-      {...cardGlow}
       {...props}
       className={cn(
-        'relative rounded-2xl bg-surface border border-border p-6 shadow-card',
-        'transition-colors duration-300',
+        'relative rounded-2xl border transition-all duration-200',
+        variantStyles.bg,
+        variantStyles.border,
+        variantStyles.shadow,
+        glowStyle,
+        'hover:border-white/10 hover:shadow-card-hover',
         className
       )}
+      whileHover={{
+        y: -1.5,
+        transition: { type: 'spring', stiffness: 500, damping: 28 }
+      }}
     >
-      {/* Animated gradient overlay */}
-      <motion.div
-        className={cn(
-          'absolute inset-0 rounded-2xl bg-linear-to-br opacity-0',
-          gradient
-        )}
-        whileHover={{ opacity: 1 }}
-        transition={{ duration: 0.3 }}
+      {/* Subtle top light highlight reflection */}
+      <div 
+        className="absolute inset-0 rounded-2xl bg-linear-to-b from-white/[0.03] via-transparent to-transparent opacity-100 pointer-events-none"
+        aria-hidden="true"
       />
       
-      {/* Subtle grain texture overlay */}
-      <div className="absolute inset-0 opacity-[0.03] bg-[url('data:image/svg+xml,%3Csvg viewBox=%220 0 200 200%22 xmlns=%22http://w3.org id=%22noise%22%3E%3CfeTurbulence type=%22fractalNoise%22 baseFrequency=%220.85%22 numOctaves=%223%22 stitchTiles=%22stitch%22/%3E%3C/filter%3E%3Crect width=%22100%25%22 height=%22100%25%22 filter=%22url(%23noise)%22/%3E%3C/svg%3E')] pointer-events-none rounded-2xl" />
-      
-      <div className="relative z-10">
+      {/* Card content */}
+      <div className="relative z-10 h-full w-full flex flex-col flex-1">
         {children}
       </div>
     </motion.div>

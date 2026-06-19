@@ -2,23 +2,23 @@ import { Variants, Transition } from 'framer-motion'
 
 export const springTransition: Transition = {
   type: 'spring',
-  stiffness: 300,
-  damping: 20,
-  mass: 1,
+  stiffness: 550,
+  damping: 28,
+  mass: 0.7,
 }
 
 export const springHoverTransition: Transition = {
   type: 'spring',
-  stiffness: 300,
-  damping: 20,
-  mass: 1,
+  stiffness: 550,
+  damping: 28,
+  mass: 0.7,
 }
 
 export const springTapTransition: Transition = {
   type: 'spring',
-  stiffness: 400,
-  damping: 17,
-  mass: 0.8,
+  stiffness: 650,
+  damping: 24,
+  mass: 0.6,
 }
 
 export const staggerContainer: Variants = {
@@ -65,9 +65,9 @@ export const hoverScale = {
 
 export const cardGlow = {
   whileHover: {
-    boxShadow: '0 0 30px -10px rgba(139, 92, 246, 0.3)',
-    borderColor: 'rgba(139, 92, 246, 0.3)',
-    transition: { duration: 0.3 },
+    boxShadow: '0 0 30px -10px rgba(91, 108, 255, 0.3)',
+    borderColor: 'rgba(91, 108, 255, 0.3)',
+    transition: { duration: 0.15 },
   },
 }
 
@@ -86,19 +86,19 @@ export const progressBarSpring = {
 
 export const layoutTransition: Transition = {
   type: 'spring',
-  stiffness: 400,
-  damping: 30,
-  mass: 1,
+  stiffness: 700,
+  damping: 42,
+  mass: 0.6,
 }
 
 export const sidebarItemHover = {
   whileHover: {
-    x: 4,
-    transition: { type: 'spring', stiffness: 400, damping: 25 },
+    x: 2,
+    transition: { type: 'spring', stiffness: 700, damping: 32 },
   },
   whileTap: {
-    scale: 0.98,
-    transition: { type: 'spring', stiffness: 500, damping: 20 },
+    scale: 0.985,
+    transition: { type: 'spring', stiffness: 800, damping: 25 },
   },
 } as const;
 

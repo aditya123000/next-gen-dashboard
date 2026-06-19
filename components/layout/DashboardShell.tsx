@@ -45,17 +45,34 @@ export async function DashboardShell() {
         <div className="p-4 md:p-6 lg:p-8">
           <div className="max-w-7xl mx-auto">
             {/* Page Header */}
-            <header className="flex items-center justify-between mb-6 lg:mb-8">
+            <header className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-8 lg:mb-10 pb-5 border-b border-white/[0.08]">
               <div>
-                <h1 className="text-xl font-bold text-white lg:hidden">
+                <div className="text-[10px] font-bold text-gray-500 uppercase tracking-widest mb-1 select-none">Overview</div>
+                <h1 className="text-2xl font-extrabold text-white tracking-tight">
                   Dashboard
                 </h1>
               </div>
-              <div className="text-sm text-gray-400 hidden lg:block" aria-live="polite">
+              <div className="flex items-center gap-4 text-sm" aria-live="polite">
                 {courses && courses.length > 0 ? (
-                  `${courses.length} courses · ${averageProgress}% average progress`
+                  <div className="flex items-center gap-2 select-none">
+                    {/* Courses Count Pill */}
+                    <div className="px-3 py-1.5 bg-zinc-950/60 border border-white/[0.08] rounded-lg flex items-center gap-2 shadow-sm">
+                      <span className="text-gray-400 text-[10px] font-bold uppercase tracking-wider">Courses</span>
+                      <span className="text-white font-bold text-xs">{courses.length}</span>
+                    </div>
+                    {/* Average Progress Pill */}
+                    <div className="px-3 py-1.5 bg-zinc-950/60 border border-white/[0.08] rounded-lg flex items-center gap-2 shadow-sm">
+                      <span className="text-gray-400 text-[10px] font-bold uppercase tracking-wider">Avg Progress</span>
+                      <div className="flex items-center gap-2">
+                        <span className="text-[#5B6CFF] font-extrabold text-xs">{averageProgress}%</span>
+                        <div className="w-10 h-1 bg-zinc-800 rounded-full overflow-hidden">
+                          <div className="h-full bg-[#5B6CFF] rounded-full" style={{ width: `${averageProgress}%` }} />
+                        </div>
+                      </div>
+                    </div>
+                  </div>
                 ) : (
-                  'No courses available'
+                  <span className="text-gray-500 text-[10px] font-bold uppercase tracking-wider">No courses available</span>
                 )}
               </div>
             </header>

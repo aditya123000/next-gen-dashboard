@@ -27,8 +27,10 @@ export default function SidebarNavItem({
     <motion.button
       onClick={onClick}
       className={cn(
-        'relative flex items-center gap-3 w-full px-3 py-2.5 rounded-lg',
-        'text-gray-400 hover:text-white transition-colors',
+        'relative flex items-center gap-3 w-full px-3 py-2.5 rounded-lg border transition-colors duration-100',
+        isActive 
+          ? 'border-transparent text-white font-semibold' 
+          : 'border-transparent text-gray-400 hover:text-white hover:bg-white/[0.02] hover:border-white/[0.02]',
         isCollapsed ? 'justify-center' : ''
       )}
       {...sidebarItemHover}
@@ -41,30 +43,32 @@ export default function SidebarNavItem({
       {isActive && (
         <motion.div
           layoutId="activeNavItem"
-          className="absolute inset-0 bg-purple-500/15 rounded-lg border border-purple-500/30"
+          className="absolute inset-0 bg-white/[0.02] border-l-2 border-l-[#5B6CFF] border-y-white/[0.02] border-r-white/[0.02] rounded-lg shadow-sm"
           transition={layoutTransition}
           aria-hidden="true"
         />
       )}
       
-      <Icon 
-        className={cn(
-          'w-5 h-5 relative z-10',
-          isActive && 'text-purple-400'
-        )} 
-        aria-hidden="true"
-      />
+      <div className="relative shrink-0 flex items-center justify-center">
+        <Icon 
+          className={cn(
+            'w-5 h-5 relative z-10 transition-colors duration-100',
+            isActive ? 'text-[#5B6CFF]' : 'text-gray-400'
+          )} 
+          aria-hidden="true"
+        />
+      </div>
       
       {!isCollapsed && (
         <motion.span
           className={cn(
-            'relative z-10 text-sm',
-            isActive ? 'text-white font-medium' : 'text-gray-400'
+            'relative z-10 text-sm font-semibold tracking-wide transition-colors duration-100',
+            isActive ? 'text-white' : 'text-gray-400'
           )}
           initial={{ opacity: 0, width: 0 }}
           animate={{ opacity: 1, width: 'auto' }}
           exit={{ opacity: 0, width: 0 }}
-          transition={{ duration: 0.2 }}
+          transition={{ duration: 0.15 }}
         >
           {label}
         </motion.span>

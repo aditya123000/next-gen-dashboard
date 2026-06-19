@@ -9,39 +9,45 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        // DARKER background palette
+        // Slate Blue background palette
         background: {
-          DEFAULT: '#0a0a0f',    // Almost black
-          secondary: '#0f0f17',   // Slightly lighter
+          DEFAULT: '#09090b',    // #09090B
+          secondary: '#0f0f13',  // #0F0F13
         },
         surface: {
-          DEFAULT: '#14141d',     // Dark card background
-          elevated: '#1a1a26',    // Slightly lighter card
-          hover: '#222233',       // Hover state
+          DEFAULT: '#121216',     // Zinc 900-ish dark
+          elevated: '#1a1a22',    // Zinc 800-ish dark
+          hover: '#1c1c24',       // Hover state
         },
         border: {
-          DEFAULT: '#2a2a35',     // Visible but subtle borders
-          subtle: '#1e1e28',      // Very subtle borders
-          glow: 'rgba(139, 92, 246, 0.3)',
+          DEFAULT: 'rgba(255, 255, 255, 0.08)',     // rgba(255,255,255,0.08)
+          subtle: 'rgba(255, 255, 255, 0.04)',      // Subtler border
+          glow: 'rgba(91, 108, 255, 0.1)',
         },
-        // Brighter accent colors for better visibility
+        // Slate Blue primary and hover accent colors
+        brand: {
+          DEFAULT: '#5B6CFF',
+          hover: '#7C8CFF',
+          accent: '#5B6CFF',
+        },
+        // Keep purple mapping but update to Slate Blue tones for safety/retro-compatibility
         purple: {
-          50: '#f5f3ff',
-          100: '#ede9fe',
-          200: '#ddd6fe',
-          300: '#c4b5fd',
-          400: '#a78bfa',
-          500: '#8b5cf6',
-          600: '#7c3aed',
-          700: '#6d28d9',
-          800: '#5b21b6',
-          900: '#4c1d95',
-          950: '#2e1065',
+          50: '#f0f2ff',
+          100: '#e0e4ff',
+          200: '#c5cbff',
+          300: '#9fa8ff',
+          400: '#7c8cff', // Hover Accent
+          500: '#5b6cff', // Primary Accent
+          600: '#4656e6',
+          700: '#3543cc',
+          800: '#2733b0',
+          900: '#1d2791',
+          950: '#11175c',
         },
         pink: {
-          400: '#f472b6',
-          500: '#ec4899',
-          600: '#db2777',
+          400: '#7c8cff',
+          500: '#5b6cff',
+          600: '#4656e6',
         },
         // BRIGHTER text colors for better contrast
         gray: {
@@ -49,7 +55,7 @@ const config: Config = {
           100: '#f4f4f5',
           200: '#e4e4e7',
           300: '#d4d4d8',
-          400: '#a1a1aa',    // Brighter secondary text
+          400: '#a1a1aa',    // Secondary text #A1A1AA
           500: '#71717a',
           600: '#52525b',
           700: '#3f3f46',
@@ -58,9 +64,15 @@ const config: Config = {
           950: '#0a0a0f',
         },
         text: {
-          primary: '#ffffff',     // Pure white for main text
-          secondary: '#d4d4d8',   // Very light gray
-          muted: '#a1a1aa',       // Brighter muted text
+          primary: '#fafafa',     // #FAFAFA
+          secondary: '#a1a1aa',   // #A1A1AA
+          muted: '#71717a',       // Muted gray
+        },
+        glow: {
+          purple: 'rgba(91, 108, 255, 0.04)',
+          pink: 'rgba(255, 255, 255, 0.01)',
+          blue: 'rgba(255, 255, 255, 0.01)',
+          orange: 'rgba(255, 255, 255, 0.01)',
         }
       },
       fontFamily: {
@@ -71,13 +83,23 @@ const config: Config = {
         '3xl': '1.5rem',
       },
       boxShadow: {
-        'glow': '0 0 30px -10px rgba(139, 92, 246, 0.15)',
-        'glow-lg': '0 0 60px -15px rgba(139, 92, 246, 0.25)',
-        'card': '0 4px 20px rgba(0, 0, 0, 0.4)',
+        // Card shadows - increasing elevation
+        'card': '0 1px 2px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.03)',
+        'card-elevated': '0 4px 12px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.05)',
+        'card-hover': '0 8px 24px rgba(0, 0, 0, 0.6), inset 0 1px 0 rgba(255, 255, 255, 0.06)',
+        
+        // Glow shadows mapped to Slate Blue accents
+        'glow-purple': '0 4px 16px -4px rgba(91, 108, 255, 0.1), inset 0 1px 0 rgba(255, 255, 255, 0.03)',
+        'glow-pink': '0 4px 16px -4px rgba(255, 255, 255, 0.01), inset 0 1px 0 rgba(255, 255, 255, 0.03)',
+        'glow-blue': '0 4px 16px -4px rgba(255, 255, 255, 0.01), inset 0 1px 0 rgba(255, 255, 255, 0.03)',
+        'glow-orange': '0 4px 16px -4px rgba(255, 255, 255, 0.01), inset 0 1px 0 rgba(255, 255, 255, 0.03)',
+        
+        // Inner glow for special cards
+        'inner-glow': 'inset 0 1px 0 rgba(255, 255, 255, 0.03)',
       },
       backgroundImage: {
-        'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
-        'gradient-glow': 'linear-gradient(135deg, rgba(139, 92, 246, 0.1), rgba(236, 72, 153, 0.05))',
+        'card-gradient': 'linear-gradient(145deg, rgba(255,255,255,0.03) 0%, rgba(255,255,255,0) 100%)',
+        'glow-radial': 'radial-gradient(ellipse at 50% 0%, var(--tw-gradient-stops))',
       },
       animation: {
         'pulse-delayed': 'pulse 2s ease-in-out 1s infinite',

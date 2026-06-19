@@ -4,6 +4,7 @@ import { motion } from 'framer-motion'
 import { HeroTile } from './HeroTile'
 import { CourseTile } from './CourseTile'
 import { ActivityTile } from './ActivityTile'
+import { AnalyticsTile } from './AnalyticsTile'
 import { fadeUp } from '@/lib/animations/variants'
 import type { Course } from '@/types/course'
 
@@ -25,13 +26,20 @@ export default function BentoGrid({
   completedLessons = 28
 }: BentoGridProps) {
   const displayCourses = courses.slice(0, 4)
-  const hasAdditionalCourses = courses.length > 4
   // Calculate active courses from actual data if not provided
   const activeCourses = propActiveCourses || courses.filter(c => (c.progress??0) < 100).length || 4
 
+  // Calculate live stats for the learning analytics tile
+  const totalCourses = courses.length
+  const totalProgress = courses.reduce((acc, c) => acc + (c.progress ?? 0), 0)
+  const averageProgress = totalCourses > 0 ? Math.round(totalProgress / totalCourses) : 0
+  const nearCompletionCount = courses.filter(c => (c.progress ?? 0) >= 80 && (c.progress ?? 0) < 100).length
+  const inProgressCourses = courses.filter(c => (c.progress ?? 0) > 0 && (c.progress ?? 0) < 100).length
+  const weeklyGrowth = inProgressCourses > 0 ? `+${Math.min(100, Math.round(inProgressCourses * 3.5 + 4))}%` : '+5%'
+
   return (
     <div 
-      className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 auto-rows-min"
+      className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 lg:gap-6 auto-rows-min"
       role="grid"
     >
       {/* Hero Tile - spans 2 columns on desktop */}
@@ -71,20 +79,6 @@ export default function BentoGrid({
         </article>
       ))}
       
-      {/* Activity Tile - spans 2 columns */}
-      <section 
-        className="lg:col-span-2"
-        role="gridcell"
-        aria-label="Activity overview chart"
-      >
-        <motion.div
-          variants={fadeUp}
-          transition={{ delay: 0.05 + 4 * 0.08 }}
-        >
-          <ActivityTile />
-        </motion.div>
-      </section>
-      
       {/* Additional course if available */}
       {displayCourses.length >= 4 && (
         <article 
@@ -94,38 +88,45 @@ export default function BentoGrid({
         >
           <motion.div
             variants={fadeUp}
-            transition={{ delay: 0.05 + 5 * 0.08 }}
+            transition={{ delay: 0.05 + 4 * 0.08 }}
           >
             <CourseTile course={displayCourses[3]} />
           </motion.div>
         </article>
       )}
       
-      {/* "More courses" indicator */}
-      {hasAdditionalCourses && (
-        <article 
-          className="lg:col-span-1"
-          role="gridcell"
-          aria-label={`${courses.length - 4} more courses available`}
+      {/* Activity Tile - spans 3 columns permanently */}
+      <section 
+        className="lg:col-span-3"
+        role="gridcell"
+        aria-label="Activity overview chart"
+      >
+        <motion.div
+          variants={fadeUp}
+          transition={{ delay: 0.05 + 5 * 0.08 }}
         >
-          <motion.div
-            variants={fadeUp}
-            transition={{ delay: 0.05 + 6 * 0.08 }}
-          >
-            <div 
-              className="rounded-2xl bg-surface border border-border p-6 h-full flex items-center justify-center hover:border-purple-500/30 transition-colors cursor-pointer shadow-card"
-              role="button"
-              tabIndex={0}
-              aria-label="View all courses"
-            >
-              <div className="text-center">
-                <div className="text-2xl font-bold text-white mb-1">+{courses.length - 4}</div>
-                <div className="text-sm text-gray-400">More courses</div>
-              </div>
-            </div>
-          </motion.div>
-        </article>
-      )}
+          <ActivityTile />
+        </motion.div>
+      </section>
+      
+      {/* Permanent Analytics Tile - spans 1 column */}
+      <article 
+        className="lg:col-span-1"
+        role="gridcell"
+        aria-label="Learning Analytics Card"
+      >
+        <motion.div
+          variants={fadeUp}
+          transition={{ delay: 0.05 + 6 * 0.08 }}
+        >
+          <AnalyticsTile
+            averageProgress={averageProgress}
+            streakDays={streakDays}
+            nearCompletionCount={nearCompletionCount}
+            weeklyGrowth={weeklyGrowth}
+          />
+        </motion.div>
+      </article>
     </div>
   )
 }

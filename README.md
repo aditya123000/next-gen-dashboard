@@ -32,15 +32,21 @@ The dashboard displays active courses, learning progress, analytics, and activit
 
 ## Desktop (1440px+)
 
-<img width="2551" height="1461" alt="Desktop Dashboard" src="https://github.com/user-attachments/assets/23177a90-3d9d-4a29-ad31-21c8273a9185" />
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/23177a90-3d9d-4a29-ad31-21c8273a9185" width="1100" alt="Desktop Dashboard">
+</p>
 
 ## Tablet (768px–1024px)
 
-<img width="861" height="1149" alt="Tablet Dashboard" src="https://github.com/user-attachments/assets/2f52bd27-acfc-49f0-850e-be7f442cb5fe" />
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/2f52bd27-acfc-49f0-850e-be7f442cb5fe" width="650" alt="Tablet Dashboard">
+</p>
 
 ## Mobile (<768px)
 
-<img width="582" height="1275" alt="Mobile Dashboard" src="https://github.com/user-attachments/assets/e98a4366-eac6-4836-a079-818dcea7a58a" />
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/e98a4366-eac6-4836-a079-818dcea7a58a" width="350" alt="Mobile Dashboard">
+</p>
 
 ---
 

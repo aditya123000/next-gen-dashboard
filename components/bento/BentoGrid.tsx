@@ -5,6 +5,7 @@ import { HeroTile } from './HeroTile'
 import { CourseTile } from './CourseTile'
 import { ActivityTile } from './ActivityTile'
 import { AnalyticsTile } from './AnalyticsTile'
+import { StaggerWrapper } from './StaggerWrapper'
 import { fadeUp } from '@/lib/animations/variants'
 import type { Course } from '@/types/course'
 
@@ -38,10 +39,9 @@ export default function BentoGrid({
   const weeklyGrowth = inProgressCourses > 0 ? `+${Math.min(100, Math.round(inProgressCourses * 3.5 + 4))}%` : '+5%'
 
   return (
-    <div 
-      className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 lg:gap-6 auto-rows-min"
-      role="grid"
-    >
+    <StaggerWrapper
+      className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 lg:gap-6 auto-rows-min">
+        
       {/* Hero Tile - spans 2 columns on desktop */}
       <article 
         className="lg:col-span-2 lg:row-span-2"
@@ -50,7 +50,6 @@ export default function BentoGrid({
       >
         <motion.div
           variants={fadeUp}
-          transition={{ delay: 0.05 }}
         >
           <HeroTile 
             userName={userName} 
@@ -63,7 +62,7 @@ export default function BentoGrid({
       </article>
       
       {/* Course Tiles - first 3 courses */}
-      {displayCourses.slice(0, 3).map((course, index) => (
+      {displayCourses.slice(0, 3).map((course) => (
         <article 
           key={course.id} 
           className="lg:col-span-1"
@@ -72,7 +71,6 @@ export default function BentoGrid({
         >
           <motion.div
             variants={fadeUp}
-            transition={{ delay: 0.05 + (index + 1) * 0.08 }}
           >
             <CourseTile course={course} />
           </motion.div>
@@ -88,7 +86,6 @@ export default function BentoGrid({
         >
           <motion.div
             variants={fadeUp}
-            transition={{ delay: 0.05 + 4 * 0.08 }}
           >
             <CourseTile course={displayCourses[3]} />
           </motion.div>
@@ -103,7 +100,6 @@ export default function BentoGrid({
       >
         <motion.div
           variants={fadeUp}
-          transition={{ delay: 0.05 + 5 * 0.08 }}
         >
           <ActivityTile />
         </motion.div>
@@ -117,7 +113,6 @@ export default function BentoGrid({
       >
         <motion.div
           variants={fadeUp}
-          transition={{ delay: 0.05 + 6 * 0.08 }}
         >
           <AnalyticsTile
             averageProgress={averageProgress}
@@ -127,6 +122,6 @@ export default function BentoGrid({
           />
         </motion.div>
       </article>
-    </div>
+    </StaggerWrapper>
   )
 }

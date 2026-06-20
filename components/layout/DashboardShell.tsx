@@ -75,7 +75,7 @@ export async function DashboardShell() {
               <Suspense fallback={<BentoGridSkeleton />}>
                 <BentoGrid 
                   courses={courses}
-                  userName="Alex Chen"
+                  userName="Andaz Kumar"
                   streakDays={42}
                   weeklyHours={weeklyHours}
                   activeCourses={inProgressCourses || 4}

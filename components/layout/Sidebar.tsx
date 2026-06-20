@@ -117,7 +117,7 @@ export default function Sidebar() {
                 exit={{ opacity: 0 }}
                 transition={{ duration: 0.15 }}
               >
-                <p className="text-white text-sm font-bold truncate leading-tight group-hover/profile:text-[#7C8CFF] transition-colors">Alex Chen</p>
+                <p className="text-white text-sm font-bold truncate leading-tight group-hover/profile:text-[#7C8CFF] transition-colors">Andaz Kumar</p>
                 <p className="text-gray-400 text-xs font-semibold uppercase tracking-wider">Student</p>
               </motion.div>
             )}

@@ -39,7 +39,7 @@ export const MOCK_COURSES: Course[] = [
 ]
 
 export const MOCK_USER = {
-  name: 'Alex Chen',
+  name: 'Andaz Kumar',
   streakDays: 42,
   role: 'Student'
 }

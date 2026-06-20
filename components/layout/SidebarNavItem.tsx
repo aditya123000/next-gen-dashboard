@@ -30,7 +30,7 @@ export default function SidebarNavItem({
         'relative flex items-center gap-3 w-full px-3 py-2.5 rounded-lg border transition-colors duration-100',
         isActive 
           ? 'border-transparent text-white font-semibold' 
-          : 'border-transparent text-gray-400 hover:text-white hover:bg-white/[0.02] hover:border-white/[0.02]',
+          : 'border-transparent text-gray-400 hover:text-white hover:bg-white/2 hover:border-white/2',
         isCollapsed ? 'justify-center' : ''
       )}
       {...sidebarItemHover}
@@ -39,11 +39,10 @@ export default function SidebarNavItem({
       aria-label={ariaLabel || label}
       aria-expanded={!isCollapsed}
     >
-      {/* Active highlight with layoutId */}
       {isActive && (
         <motion.div
           layoutId="activeNavItem"
-          className="absolute inset-0 bg-white/[0.02] border-l-2 border-l-[#5B6CFF] border-y-white/[0.02] border-r-white/[0.02] rounded-lg shadow-sm"
+          className="absolute inset-0 bg-white/2 border-l-2 border-l-[#5B6CFF] border-y-white/2 border-r-white/2 rounded-lg shadow-sm"
           transition={layoutTransition}
           aria-hidden="true"
         />

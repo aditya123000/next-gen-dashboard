@@ -13,7 +13,7 @@ const navItems = [
 export default function BottomNav() {
   return (
     <nav 
-      className="lg:hidden fixed bottom-0 left-0 right-0 bg-[#07070a]/85 backdrop-blur-xl border-t border-white/[0.08] z-50 shadow-[0_-8px_32px_rgba(0,0,0,0.5)]"
+      className="lg:hidden fixed bottom-0 left-0 right-0 bg-[#07070a]/85 backdrop-blur-xl border-t border-white/8 z-50 shadow-[0_-8px_32px_rgba(0,0,0,0.5)]"
       aria-label="Mobile navigation"
     >
       <ul 
@@ -35,7 +35,7 @@ export default function BottomNav() {
                 aria-label={item.ariaLabel}
               >
                 {isActive && (
-                  <div className="absolute top-0 w-8 h-[2px] bg-[#5B6CFF] rounded-full" style={{ transform: 'translateY(-6px)' }} />
+                  <div className="absolute top-0 w-8 h-0.5 bg-[#5B6CFF] rounded-full" style={{ transform: 'translateY(-6px)' }} />
                 )}
                 <item.icon className="w-5 h-5 relative z-10" aria-hidden="true" />
                 <span className="text-[10px] font-semibold tracking-wide relative z-10">{item.label}</span>

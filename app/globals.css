@@ -12,7 +12,6 @@
     -moz-osx-font-smoothing: grayscale;
   }
   
-  /* Custom scrollbar */
   ::-webkit-scrollbar {
     width: 6px;
     height: 6px;
@@ -32,7 +31,6 @@
 }
 
 @layer utilities {
-  /* Gradient text - brand Slate Blue theme */
   .text-gradient {
     @apply bg-linear-to-r from-[#5B6CFF] via-[#7C8CFF] to-[#5B6CFF] bg-clip-text text-transparent;
     background-size: 200% 200%;
@@ -44,7 +42,6 @@
     50% { background-position: 100% 50%; }
   }
   
-  /* Glow pulse */
   .glow-pulse {
     animation: glow-pulse 2s ease-in-out infinite;
   }
@@ -54,7 +51,6 @@
     50% { opacity: 0.6; }
   }
   
-  /* Card glow on hover */
   .card-glow {
     @apply transition-all duration-300;
   }
@@ -63,7 +59,6 @@
     @apply shadow-glow border-[#5B6CFF]/30;
   }
 
-  /* Noise overlay utility */
   .noise-bg {
     position: relative;
   }
@@ -80,12 +75,10 @@
     z-index: 1;
   }
 
-  /* Smooth gradient borders mapped to brand color */
   .border-gradient-purple-pink {
     border-image: linear-gradient(135deg, rgba(91, 108, 255, 0.2) 0%, rgba(91, 108, 255, 0.05) 100%) 1;
   }
 
-  /* Keyframe animations for hardware-accelerated background drift */
   @keyframes drift-slow {
     0% { transform: translate(0, 0) scale(1); }
     33% { transform: translate(30px, -50px) scale(1.08); }
@@ -113,12 +106,10 @@
 }
 
 @layer base {
-  /* Force better contrast on all text */
   p, span, h1, h2, h3, h4, h5, h6 {
     @apply text-text-primary;
   }
   
-  /* Secondary text */
   .text-muted {
     @apply text-gray-400;
   }

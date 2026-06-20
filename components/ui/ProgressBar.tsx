@@ -14,7 +14,7 @@ export function ProgressBar({
   showLabel = false 
 }: ProgressBarProps) {
   return (
-    <div className={`relative w-full h-2 bg-white/[0.04] rounded-full overflow-hidden border border-white/[0.03] shadow-[inset_0_1px_2px_rgba(0,0,0,0.6)] ${className}`}>
+    <div className={`relative w-full h-2 bg-white/4 rounded-full overflow-hidden border border-white/3 shadow-[inset_0_1px_2px_rgba(0,0,0,0.6)] ${className}`}>
       <motion.div 
         className="h-full bg-[#5B6CFF] rounded-full"
         style={{ transformOrigin: 'left' }}

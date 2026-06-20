@@ -6,15 +6,13 @@ export const GradientMesh: React.FC = () => {
       className="fixed inset-0 -z-10 overflow-hidden pointer-events-none select-none bg-background noise-bg" 
       aria-hidden="true"
     >
-      {/* Calm, static top-center ambient glow */}
       <div 
-        className="absolute top-[-25%] left-1/2 -translate-x-1/2 w-[80vw] h-[50vw] min-w-[600px] min-h-[400px] rounded-full blur-[140px] opacity-[0.06]"
+        className="absolute top-[-25%] left-1/2 -translate-x-1/2 w-[80vw] h-[50vw] min-w-150 min-h-100 rounded-full blur-[140px] opacity-[0.06]"
         style={{
           background: 'radial-gradient(circle, rgba(91, 108, 255, 0.6) 0%, transparent 80%)'
         }}
       />
 
-      {/* Calm, static bottom-right ambient glow */}
       <div 
         className="absolute bottom-[-20%] right-[-10%] w-[50vw] h-[50vw] rounded-full blur-[160px] opacity-[0.03]"
         style={{
@@ -22,9 +20,8 @@ export const GradientMesh: React.FC = () => {
         }}
       />
 
-      {/* Subtle Grid Dot overlay for depth (masked so it gently fades) */}
       <div 
-        className="absolute inset-0 bg-[radial-gradient(rgba(255,255,255,0.015)_1.5px,transparent_1.5px)] [background-size:24px_24px] opacity-70"
+        className="absolute inset-0 bg-[radial-gradient(rgba(255,255,255,0.015)_1.5px,transparent_1.5px)] bg-size-[24px_24px] opacity-70"
         style={{ 
           WebkitMaskImage: 'radial-gradient(ellipse at 50% 25%, black, transparent 75%)',
           maskImage: 'radial-gradient(ellipse at 50% 25%, black, transparent 75%)' 

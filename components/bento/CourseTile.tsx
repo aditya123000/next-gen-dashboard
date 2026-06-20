@@ -11,7 +11,6 @@ interface CourseTileProps {
 export function CourseTile({ course }: CourseTileProps) {
   const progress = course.progress ?? 0
 
-  // Deriving educational metadata based on course titles to enrich UI information density
   const getCourseMeta = (title: string) => {
     const t = title.toLowerCase()
     if (t.includes('database') || t.includes('sql') || t.includes('query')) {
@@ -43,11 +42,10 @@ export function CourseTile({ course }: CourseTileProps) {
     <GlowCard 
       variant="default"
       glowColor="none"
-      className="h-full flex flex-col p-5 justify-between min-h-[190px]"
+      className="h-full flex flex-col p-5 justify-between min-h-47.5"
     >
       <div className="flex items-start justify-between gap-3">
-        {/* Shrunken, subtle category icon */}
-        <div className="w-8 h-8 rounded-md bg-white/[0.015] flex items-center justify-center border border-white/[0.08] shrink-0 select-none">
+        <div className="w-8 h-8 rounded-md bg-white/1.5 flex items-center justify-center border border-white/8 shrink-0 select-none">
           <Icon 
             name={course.icon_name} 
             className="text-[#5B6CFF]" 
@@ -56,8 +54,7 @@ export function CourseTile({ course }: CourseTileProps) {
           />
         </div>
         
-        {/* Course category tag */}
-        <span className="text-[9px] font-bold uppercase tracking-wider text-gray-400 bg-white/[0.02] border border-white/[0.08] px-2 py-0.5 rounded select-none">
+        <span className="text-[9px] font-bold uppercase tracking-wider text-gray-400 bg-white/2 border border-white/8 px-2 py-0.5 rounded select-none">
           {meta.tag}
         </span>
       </div>
@@ -67,7 +64,6 @@ export function CourseTile({ course }: CourseTileProps) {
           {course.title}
         </h3>
 
-        {/* Progress context / milestone information */}
         <div className="flex items-center justify-between text-[10px] font-bold text-gray-500 select-none">
           <span>{getMilestoneText()}</span>
           <span className="text-white">{progress}%</span>

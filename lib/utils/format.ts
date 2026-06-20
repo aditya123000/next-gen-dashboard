@@ -1,6 +1,3 @@
-/**
- * Format a date to a relative time string
- */
 export function formatRelativeTime(date: string | Date): string {
   const now = new Date()
   const target = typeof date === 'string' ? new Date(date) : date
@@ -24,32 +21,20 @@ export function formatRelativeTime(date: string | Date): string {
   return 'Just now'
 }
 
-/**
- * Format a number with commas
- */
 export function formatNumber(num: number): string {
   return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')
 }
 
-/**
- * Truncate a string to a maximum length
- */
 export function truncate(str: string, maxLength: number, suffix = '...'): string {
   if (str.length <= maxLength) return str
   return str.slice(0, maxLength - suffix.length) + suffix
 }
 
-/**
- * Capitalize first letter of a string
- */
 export function capitalize(str: string): string {
   if (!str || str.length === 0) return str
   return str.charAt(0).toUpperCase() + str.slice(1).toLowerCase()
 }
 
-/**
- * Get initials from a name
- */
 export function getInitials(name: string): string {
   if (!name) return ''
   return name
@@ -60,17 +45,11 @@ export function getInitials(name: string): string {
     .slice(0, 2)
 }
 
-/**
- * Pluralize a word based on count
- */
 export function pluralize(word: string, count: number, plural?: string): string {
   if (count === 1) return word
   return plural || `${word}s`
 }
 
-/**
- * Slugify a string (convert to URL-friendly format)
- */
 export function slugify(str: string): string {
   return str
     .toLowerCase()

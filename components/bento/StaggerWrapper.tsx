@@ -1,4 +1,3 @@
-// components/bento/StaggerWrapper.tsx
 'use client'
 
 import { motion } from 'framer-motion'

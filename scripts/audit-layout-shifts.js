@@ -4,7 +4,6 @@ import fs from 'node:fs'
 import path from 'node:path'
 import { globSync } from 'glob'
 
-// Properties that cause layout shifts
 const LAYOUT_PROPERTIES = [
   'width',
   'height',
@@ -43,11 +42,9 @@ files.forEach((file) => {
   const lines = content.split('\n')
   
   lines.forEach((line, index) => {
-    // Check for className strings with layout properties
     LAYOUT_PROPERTIES.forEach((prop) => {
       const regex = new RegExp(`(?:className|style)=["'](?:[^"']*\\b${prop}\\b[^"']*)["']`, 'g')
       if (regex.test(line)) {
-        // But ignore if it's in a transition (probably using transform)
         if (!line.includes('transform') && !line.includes('transition-')) {
           violations.push({
             file,

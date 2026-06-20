@@ -20,7 +20,7 @@ export function AnalyticsTile({
     <GlowCard
       variant="default"
       glowColor="none"
-      className="p-5 flex flex-col justify-between h-full min-h-[220px]"
+      className="p-5 flex flex-col justify-between h-full min-h-55"
     >
       <div className="flex items-center justify-between mb-4">
         <h3 className="text-white font-bold text-sm">Learning Analytics</h3>
@@ -30,8 +30,7 @@ export function AnalyticsTile({
       </div>
 
       <div className="grid grid-cols-2 gap-4 flex-1">
-        {/* Average Progress */}
-        <div className="flex flex-col justify-between p-3 rounded-xl bg-white/[0.01] border border-white/[0.03] select-none hover:border-[#5B6CFF]/20 transition-all duration-150">
+        <div className="flex flex-col justify-between p-3 rounded-xl bg-white/1 border border-white/3 select-none hover:border-[#5B6CFF]/20 transition-all duration-150">
           <div className="flex items-center gap-2 mb-1">
             <Target className="w-3.5 h-3.5 text-gray-500" />
             <span className="text-[10px] font-bold text-gray-500 uppercase tracking-wider">Avg Progress</span>
@@ -41,8 +40,7 @@ export function AnalyticsTile({
           </div>
         </div>
 
-        {/* Learning Streak */}
-        <div className="flex flex-col justify-between p-3 rounded-xl bg-white/[0.01] border border-white/[0.03] select-none hover:border-[#5B6CFF]/20 transition-all duration-150">
+        <div className="flex flex-col justify-between p-3 rounded-xl bg-white/1 border border-white/3 select-none hover:border-[#5B6CFF]/20 transition-all duration-150">
           <div className="flex items-center gap-2 mb-1">
             <Flame className="w-3.5 h-3.5 text-gray-500" />
             <span className="text-[10px] font-bold text-gray-500 uppercase tracking-wider">Streak</span>
@@ -53,8 +51,7 @@ export function AnalyticsTile({
           </div>
         </div>
 
-        {/* Near Completion */}
-        <div className="flex flex-col justify-between p-3 rounded-xl bg-white/[0.01] border border-white/[0.03] select-none hover:border-[#5B6CFF]/20 transition-all duration-150">
+        <div className="flex flex-col justify-between p-3 rounded-xl bg-white/1 border border-white/3 select-none hover:border-[#5B6CFF]/20 transition-all duration-150">
           <div className="flex items-center gap-2 mb-1">
             <CheckCircle2 className="w-3.5 h-3.5 text-gray-500" />
             <span className="text-[10px] font-bold text-gray-500 uppercase tracking-wider">Near Finish</span>
@@ -65,8 +62,7 @@ export function AnalyticsTile({
           </div>
         </div>
 
-        {/* Weekly Growth */}
-        <div className="flex flex-col justify-between p-3 rounded-xl bg-white/[0.01] border border-white/[0.03] select-none hover:border-[#5B6CFF]/20 transition-all duration-150">
+        <div className="flex flex-col justify-between p-3 rounded-xl bg-white/1 border border-white/3 select-none hover:border-[#5B6CFF]/20 transition-all duration-150">
           <div className="flex items-center gap-2 mb-1">
             <TrendingUp className="w-3.5 h-3.5 text-gray-500" />
             <span className="text-[10px] font-bold text-gray-500 uppercase tracking-wider">Weekly Growth</span>

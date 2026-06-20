@@ -32,21 +32,19 @@ export default function Sidebar() {
       <nav
         aria-label="Main navigation"
         className={cn(
-          "fixed left-0 top-0 h-full bg-[#09090b]/80 backdrop-blur-xl border-r border-white/[0.08] z-50",
+          "fixed left-0 top-0 h-full bg-[#09090b]/80 backdrop-blur-xl border-r border-white/8 z-50",
           "transition-all duration-150 ease-in-out hidden lg:flex flex-col shadow-card",
           isCollapsed ? 'w-20' : 'w-64'
         )}
         style={{ width: isCollapsed ? 80 : 256 }}
       >
-        {/* Skip to content - hidden but accessible */}
         <div className="sr-only">
           <a href="#main-content">Skip to main content</a>
         </div>
 
-        {/* Logo / Brand */}
         <div 
           className={cn(
-            "h-16 flex items-center px-4 border-b border-white/[0.08] relative overflow-hidden group/brand",
+            "h-16 flex items-center px-4 border-b border-white/8 relative overflow-hidden group/brand",
             isCollapsed ? 'justify-center' : ''
           )}
           aria-hidden="true"
@@ -55,7 +53,6 @@ export default function Sidebar() {
             className="flex items-center gap-2.5"
             layout="position"
           >
-            {/* Logo Container with unified Slate Blue theme */}
             <div 
               className="w-8 h-8 rounded-lg bg-[#5B6CFF]/10 flex items-center justify-center shrink-0 border border-[#5B6CFF]/20 relative overflow-hidden group-hover/brand:scale-105 transition-transform duration-150"
               aria-label="Learn.io logo"
@@ -76,7 +73,6 @@ export default function Sidebar() {
           </motion.div>
         </div>
 
-        {/* Navigation List */}
         <ul 
           className="flex-1 px-3 py-4 space-y-1"
           role="list"
@@ -96,14 +92,13 @@ export default function Sidebar() {
           ))}
         </ul>
 
-        {/* User Profile */}
         <section 
-          className="border-t border-white/[0.08] p-4"
+          className="border-t border-white/8 p-4"
           aria-label="User profile"
         >
           <motion.div 
             className={cn(
-              "flex items-center gap-3 p-2 rounded-xl border border-transparent transition-all duration-100 hover:bg-white/[0.02] hover:border-white/[0.08] cursor-pointer group/profile",
+              "flex items-center gap-3 p-2 rounded-xl border border-transparent transition-all duration-100 hover:bg-white/2 hover:border-white/8 cursor-pointer group/profile",
               isCollapsed ? 'justify-center p-1.5' : ''
             )}
             layout="position"
@@ -129,10 +124,9 @@ export default function Sidebar() {
           </motion.div>
         </section>
 
-        {/* Collapse Toggle */}
         <motion.button
           onClick={() => setIsCollapsed(!isCollapsed)}
-          className="absolute -right-3 top-1/2 -translate-y-1/2 w-6 h-6 rounded-full bg-[#12121a]/95 border border-white/[0.08] shadow-[0_4px_12px_rgba(0,0,0,0.5)] flex items-center justify-center hover:bg-[#1a1a26] hover:border-[#5B6CFF]/40 transition-all duration-100 lg:flex z-50"
+          className="absolute -right-3 top-1/2 -translate-y-1/2 w-6 h-6 rounded-full bg-[#12121a]/95 border border-white/8 shadow-[0_4px_12px_rgba(0,0,0,0.5)] flex items-center justify-center hover:bg-[#1a1a26] hover:border-[#5B6CFF]/40 transition-all duration-100 lg:flex z-50"
           whileHover={{ scale: 1.15 }}
           whileTap={{ scale: 0.92 }}
           aria-label={isCollapsed ? "Expand sidebar" : "Collapse sidebar"}

@@ -18,7 +18,6 @@ export function GlowCard({
   glowColor = 'none',
   ...props 
 }: GlowCardProps) {
-  // Variant configurations
   const variants = {
     default: {
       bg: 'bg-zinc-950/40 backdrop-blur-md',
@@ -42,7 +41,6 @@ export function GlowCard({
     },
   }
 
-  // Glow color configurations (mapped to standard subtle shadows for visual calming)
   const glowColors = {
     purple: 'shadow-glow-purple',
     pink: 'shadow-glow-pink',
@@ -71,9 +69,8 @@ export function GlowCard({
         transition: { type: 'spring', stiffness: 500, damping: 28 }
       }}
     >
-      {/* Subtle top light highlight reflection */}
       <div 
-        className="absolute inset-0 rounded-2xl bg-linear-to-b from-white/[0.03] via-transparent to-transparent opacity-100 pointer-events-none"
+        className="absolute inset-0 rounded-2xl bg-linear-to-b from-white/3 via-transparent to-transparent opacity-100 pointer-events-none"
         aria-hidden="true"
       />
       

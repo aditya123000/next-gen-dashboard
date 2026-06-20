@@ -27,10 +27,8 @@ export default function BentoGrid({
   completedLessons = 28
 }: BentoGridProps) {
   const displayCourses = courses.slice(0, 4)
-  // Calculate active courses from actual data if not provided
   const activeCourses = propActiveCourses || courses.filter(c => (c.progress??0) < 100).length || 4
 
-  // Calculate live stats for the learning analytics tile
   const totalCourses = courses.length
   const totalProgress = courses.reduce((acc, c) => acc + (c.progress ?? 0), 0)
   const averageProgress = totalCourses > 0 ? Math.round(totalProgress / totalCourses) : 0
@@ -42,7 +40,6 @@ export default function BentoGrid({
     <StaggerWrapper
       className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 lg:gap-6 auto-rows-min">
         
-      {/* Hero Tile - spans 2 columns on desktop */}
       <article 
         className="lg:col-span-2 lg:row-span-2"
         role="gridcell"
@@ -60,8 +57,7 @@ export default function BentoGrid({
           />
         </motion.div>
       </article>
-      
-      {/* Course Tiles - first 3 courses */}
+
       {displayCourses.slice(0, 3).map((course) => (
         <article 
           key={course.id} 
@@ -77,7 +73,6 @@ export default function BentoGrid({
         </article>
       ))}
       
-      {/* Additional course if available */}
       {displayCourses.length >= 4 && (
         <article 
           className="lg:col-span-1"
@@ -92,7 +87,6 @@ export default function BentoGrid({
         </article>
       )}
       
-      {/* Activity Tile - spans 3 columns permanently */}
       <section 
         className="lg:col-span-3"
         role="gridcell"
@@ -105,7 +99,6 @@ export default function BentoGrid({
         </motion.div>
       </section>
       
-      {/* Permanent Analytics Tile - spans 1 column */}
       <article 
         className="lg:col-span-1"
         role="gridcell"
